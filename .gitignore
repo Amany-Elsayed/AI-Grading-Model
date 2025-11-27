@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+
+# Environments
+.venv/
+env/
+venv/
+
+# Model files
+*.bin
+*.pt
+*.pkl
+*.h5
+
+# VSCode
+.vscode/

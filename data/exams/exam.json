@@ -1,0 +1,17 @@
+{
+    "q1": {
+        "type": "paragraph",
+        "answer": "Photosynthesis is the process that produces glucose and oxygen.",
+        "points": 10
+    },
+    "q2": {
+        "type": "mcq",
+        "answer": "B",
+        "points": 5
+    },
+    "q3": {
+        "type": "paragraph",
+        "answer": "The heart's job is to pump blood throughout the body.",
+        "points": 15
+    }
+}

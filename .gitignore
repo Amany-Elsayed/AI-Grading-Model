@@ -13,5 +13,10 @@ venv/
 *.pkl
 *.h5
 
+# Sample data (local only)
+data/exams/
+data/results/
+data/students/
+
 # VSCode
 .vscode/

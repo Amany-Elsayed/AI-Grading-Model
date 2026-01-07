@@ -1,5 +1,3 @@
-#بسم الله الرحمن الرحيم
-
 from sentence_transformers import SentenceTransformer, util
 import json, os
 
@@ -10,10 +8,9 @@ def score_paragraph(reference_answer, student_answer):
     ref_emb = model.encode(reference_answer, convert_to_tensor=True)
     stu_emb = model.encode(student_answer, convert_to_tensor=True)
 
-    similarity = util.cos_sim(ref_emb, stu_emb).item() # بيحط الخرج في دالة مبين 1و-1
-    similarity = max(0, similarity) #علشان الغي السالب
-    score = similarity * 100 #بيحولها لنسبة مئوية
-
+    similarity = util.cos_sim(ref_emb, stu_emb).item()
+    similarity = max(0, similarity)
+    score = similarity * 100 
     return round(score, 2)
 
 def grade_exam(questions, student_answers):
@@ -32,23 +29,23 @@ def grade_exam(questions, student_answers):
                 student_answers.get(q_id, "")
             )
             
-            raw_points = points * (similarity_score / 100) #بيحسب الدرجة 
-            earned = round(raw_points) # بيقرب الدرجة لاقرب عدد صحيح
+            raw_points = points * (similarity_score / 100)
+            earned = round(raw_points)
 
         else:
-            earned = 0 #لو السؤال مش فقرة هيتم تجاهله
+            earned = 0
 
         results[q_id] = earned
         total += earned
 
     return results, total, max_total
 
-def load_json(path): #بفتح الفايلات
+def load_json(path):
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
     
 
-def save_results(exam_name, student_name, results, total, max_total): #بكريت ملفات الدرجات
+def save_results(exam_name, student_name, results, total, max_total):
 
     os.makedirs(f"data/results/{exam_name}", exist_ok=True)
     path = f"data/results/{exam_name}/{student_name}_results.json"
@@ -67,7 +64,7 @@ def save_results(exam_name, student_name, results, total, max_total): #بكري�
     print(f"Saved results for {student_name} in {path}")
 
 
-def process_exam(exam_file): #هنا بشوف الامتحان واخذ اسمه و اقارنه بالملف الي بنفس الاسم و اشوف الطلاب فيه
+def process_exam(exam_file):
     exam_name = exam_file.replace(".json", "")
     exam_path = f"data/exams/{exam_file}"
 

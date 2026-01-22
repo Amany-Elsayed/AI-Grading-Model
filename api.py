@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from sentence_transformers import SentenceTransformer, util
 
-app = FastAPI()
+app = FastAPI(title="AI Grading API")
 
 model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 
@@ -48,6 +48,11 @@ class GradeRequest(BaseModel):
     student_answers: dict
 
 #endpoint
+
+@app.get("/")
+def root():
+    return {"status": "AI Grading API is running"}
+
 
 @app.post("/grade")
 def grade(data: GradeRequest):

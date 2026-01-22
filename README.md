@@ -142,7 +142,7 @@ Swagger (interactive API documentation):
 -   Designed to be called via HTTP from any backend (PHP, Node.js,
     etc.).
 -   The model is loaded once at startup for performance.
--   No authentication is included by default.
+-   API access is protected using an API key sent via request headers.
 -   Runs on CPU; GPU is optional but not required.
 
 ------------------------------------------------------------------------

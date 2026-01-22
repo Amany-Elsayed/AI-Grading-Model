@@ -1,8 +1,15 @@
+import os
+from fastapi import Header, HTTPException
 from fastapi import FastAPI
 from pydantic import BaseModel
 from sentence_transformers import SentenceTransformer, util
 
 app = FastAPI(title="AI Grading API")
+API_KEY = os.getenv("API_KEY")
+
+if API_KEY is None:
+    raise RuntimeError("API_KEY environment variable is not set")
+
 
 model = SentenceTransformer("sentence-transformers/paraphrase-MiniLM-L3-v2")
 
@@ -55,7 +62,13 @@ def root():
 
 
 @app.post("/grade")
-def grade(data: GradeRequest):
+def grade(
+    data: GradeRequest,
+    x_api_key: str = Header(None)
+):
+    if x_api_key != API_KEY:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+
     results, total, max_total = grade_exam(
         data.questions,
         data.student_answers
@@ -68,3 +81,4 @@ def grade(data: GradeRequest):
         "total": total,
         "max_total": max_total
     }
+

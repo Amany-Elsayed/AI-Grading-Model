@@ -4,7 +4,7 @@ from sentence_transformers import SentenceTransformer, util
 
 app = FastAPI(title="AI Grading API")
 
-model = SentenceTransformer("sentence-transformers/all-MiniLM-L3-v2")
+model = SentenceTransformer("sentence-transformers/paraphrase-MiniLM-L3-v2")
 
 def score_paragraph(reference_answer, student_answer):
     ref_emb = model.encode(reference_answer, convert_to_tensor=True)
